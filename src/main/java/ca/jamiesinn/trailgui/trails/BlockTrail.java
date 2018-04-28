@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 
 public class BlockTrail extends Trail {
+
     private MaterialData blockData;
     private byte itemData;
 

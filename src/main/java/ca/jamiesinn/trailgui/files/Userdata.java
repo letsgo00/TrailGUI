@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Userdata {
+
     private static Userdata instance;
     private FileConfiguration config;
     private String FILENAME = "Userdata.yml";

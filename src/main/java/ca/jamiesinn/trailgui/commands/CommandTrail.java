@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CommandTrail implements CommandExecutor, TabCompleter {
+
     private TrailGUI trailGUI;
 
     public CommandTrail(TrailGUI trailGUI) {
@@ -24,8 +25,7 @@ public class CommandTrail implements CommandExecutor, TabCompleter {
     }
 
     public List<String> onTabComplete(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        List<String> trailList = new ArrayList<String>();
-        trailList.addAll(TrailGUI.trailTypes.keySet());
+        List<String> trailList = new ArrayList<>(TrailGUI.trailTypes.keySet());
         trailList.add("ClearAll");
         if (args.length == 1) {
             Collections.sort(trailList);

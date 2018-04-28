@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class Util {
+
     private static ItemStack itemNextPage;
     private static ItemStack itemPreviousPage;
     private static ItemStack itemRemoveTrails;

@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 public class SQLManager {
+
     private Connection connection;
     private String host;
     private int port;

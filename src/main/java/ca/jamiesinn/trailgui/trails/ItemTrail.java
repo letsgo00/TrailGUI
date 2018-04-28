@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemTrail extends Trail {
+
     private ItemStack data;
     private byte itemData;
 

@@ -18,6 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.*;
 
 public abstract class Trail {
+
     double displayLocation;
     int amount;
     int cooldown;

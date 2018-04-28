@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public class Listeners implements Listener {
+
     TrailGUI trailGUI;
 
     public Listeners(TrailGUI trailGUI) {

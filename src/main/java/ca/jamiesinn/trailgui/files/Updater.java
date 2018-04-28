@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Updater {
+
     private TrailGUI trailGUI;
 
     public Updater(TrailGUI trailGUI) {

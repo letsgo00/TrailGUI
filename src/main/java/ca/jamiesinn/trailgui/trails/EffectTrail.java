@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 public class EffectTrail extends Trail {
+
     private Effect effect;
 
     public EffectTrail(ConfigurationSection config) {

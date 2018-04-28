@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 public class NormalTrail extends Trail {
+
     public NormalTrail(ConfigurationSection config) {
         super(config);
         loadType(config.getString("type"));
