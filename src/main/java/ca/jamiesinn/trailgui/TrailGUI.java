@@ -8,6 +8,7 @@ import ca.jamiesinn.trailgui.files.Userdata;
 import ca.jamiesinn.trailgui.sql.SQLManager;
 import ca.jamiesinn.trailgui.trails.*;
 import com.earth2me.essentials.IEssentials;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
@@ -15,7 +16,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 //import org.mcstats.Metrics;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class TrailGUI extends JavaPlugin {
+
     public static String prefix;
     public static boolean oneTrailAtATime;
     public static int maxTrails;
@@ -62,12 +63,14 @@ public class TrailGUI extends JavaPlugin {
 //        }
 
         if (getConfig().getBoolean("updater")) {
-            try {
-                Updater updater = new Updater(plugin);
-                updater.check();
-            } catch (Exception e) {
-                getLogger().info("Couldn't connect to the update server. Not checking for updates.");
-            }
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(this, () -> {
+                try {
+                    Updater updater = new Updater(plugin);
+                    updater.check();
+                } catch (Exception e) {
+                    getLogger().info("Couldn't connect to the update server. Not checking for updates.");
+                }
+            },0);
         }
         if (getConfig().getBoolean("mysql")) {
             try {
