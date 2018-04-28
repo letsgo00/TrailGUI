@@ -7,43 +7,38 @@ import org.bukkit.event.HandlerList;
 
 import java.util.List;
 
-public class TrailDisableEvent extends Event
-{
+public class TrailDisableEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
     private Trail trail;
     private Player player;
     private List<Trail> trails;
 
-    public TrailDisableEvent(Player player, List<Trail> trails)
-    {
+    public TrailDisableEvent(Player player, List<Trail> trails) {
         this.player = player;
         this.trails = trails;
 
     }
-    public TrailDisableEvent(Player player, Trail trail)
-    {
+
+    public TrailDisableEvent(Player player, Trail trail) {
         this.trail = trail;
         this.player = player;
     }
 
-    @Override public HandlerList getHandlers()
-    {
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 
-    public Player getPlayer()
-    {
+    public Player getPlayer() {
         return player;
     }
 
-    public Trail getTrail()
-    {
+    public Trail getTrail() {
         return trail;
     }
 
-    public List<Trail> getTrails()
-    {
-        if(trails.isEmpty())
+    public List<Trail> getTrails() {
+        if (trails.isEmpty())
             trails.add(trail);
         return trails;
     }

@@ -8,43 +8,35 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Updater
-{
+public class Updater {
     private TrailGUI trailGUI;
 
-    public Updater(TrailGUI trailGUI)
-    {
+    public Updater(TrailGUI trailGUI) {
         this.trailGUI = trailGUI;
 
     }
 
-    private int getLatestBuildNumber() throws IOException
-    {
+    private int getLatestBuildNumber() throws IOException {
         URL url = new URL("http://wat.sinnpi.com/api.php?api=latestjenkins&server=http://ci.md-5.net&job=TrailGUI");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.addRequestProperty("User-Agent", "Mozilla/4.76");
         String output = "";
         try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(conn.getInputStream())))
-        {
+                new InputStreamReader(conn.getInputStream()))) {
 
             String inputLine;
 
-            while ((inputLine = br.readLine()) != null)
-            {
+            while ((inputLine = br.readLine()) != null) {
                 output += inputLine;
             }
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             trailGUI.getLogger().info("Could not connect to the updater server. Will check on next enable.");
         }
 
         return Integer.parseInt(output);
     }
 
-    private int getCurrentBuildNumber()
-    {
+    private int getCurrentBuildNumber() {
         //Format: ${primaryVersion}-b${BUILD_NUMBER}-${releaseType}
         String currentVersion = trailGUI.getDescription().getVersion();
         if (currentVersion.contains("${BUILD_NUMBER}")) return -1;
@@ -53,14 +45,12 @@ public class Updater
         return Integer.parseInt(build);
     }
 
-    private boolean isItUpToDate() throws IOException
-    {
+    private boolean isItUpToDate() throws IOException {
         return getLatestBuildNumber() <= getCurrentBuildNumber();
     }
 
 
-    public void check() throws IOException
-    {     
+    public void check() throws IOException {
         trailGUI.getLogger().info("Updater is disabled internally.");
     }
 }

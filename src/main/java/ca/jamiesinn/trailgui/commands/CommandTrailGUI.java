@@ -9,42 +9,33 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandTrailGUI
-        implements CommandExecutor
-{
+        implements CommandExecutor {
     TrailGUI trailGUI;
 
-    public CommandTrailGUI(TrailGUI trailGUI)
-    {
+    public CommandTrailGUI(TrailGUI trailGUI) {
         this.trailGUI = trailGUI;
     }
 
 
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
-    {
-        for (String string : TrailGUI.disabledWorlds)
-        {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        for (String string : TrailGUI.disabledWorlds) {
             string = string.replace("[", "");
             string = string.replace("]", "");
-            if (sender instanceof Player)
-            {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if (string.equals(player.getWorld().getName()))
-                {
+                if (string.equals(player.getWorld().getName())) {
                     player.sendMessage(TrailGUI.prefix + ChatColor.RED + "You cannot use this command in this world.");
                     return true;
                 }
             }
-            if (args.length == 0)
-            {
+            if (args.length == 0) {
                 sender.sendMessage(TrailGUI.prefix + ChatColor.GREEN + "Available commands:");
                 sender.sendMessage(ChatColor.GREEN + "/trailgui reload");
                 sender.sendMessage(ChatColor.GREEN + "/trailgui version");
                 return true;
             }
-            if (args[0].equalsIgnoreCase("reload"))
-            {
-                if (!sender.hasPermission("trailgui.commands.reloadconfigs") && !sender.hasPermission("trailgui.*"))
-                {
+            if (args[0].equalsIgnoreCase("reload")) {
+                if (!sender.hasPermission("trailgui.commands.reloadconfigs") && !sender.hasPermission("trailgui.*")) {
                     sender.sendMessage(TrailGUI.getPlugin().getConfig().getString("Commands.denyPermissionMessage").replaceAll("&", "\u00A7"));
                     return true;
                 }
@@ -56,8 +47,7 @@ public class CommandTrailGUI
                 sender.sendMessage(TrailGUI.prefix + ChatColor.GREEN + "Successfully reloaded all config files.");
                 return true;
             }
-            if (args[0].equalsIgnoreCase("version"))
-            {
+            if (args[0].equalsIgnoreCase("version")) {
                 sender.sendMessage(TrailGUI.prefix + ChatColor.GREEN + "Version: "
                         + this.trailGUI.getDescription().getVersion());
                 return true;

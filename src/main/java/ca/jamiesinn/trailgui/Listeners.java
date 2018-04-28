@@ -13,23 +13,18 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class Listeners implements Listener
-{
+public class Listeners implements Listener {
     TrailGUI trailGUI;
 
-    public Listeners(TrailGUI trailGUI)
-    {
+    public Listeners(TrailGUI trailGUI) {
         this.trailGUI = trailGUI;
     }
 
     @EventHandler
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event)
-    {
-        if (TrailGUI.removeTrailOnPlayerHit)
-        {
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (TrailGUI.removeTrailOnPlayerHit) {
             if (((event.getDamager() instanceof Player)) &&
-                    ((event.getEntity() instanceof Player)))
-            {
+                    ((event.getEntity() instanceof Player))) {
                 Player hit = (Player) event.getEntity();
 
                 Util.clearTrails(hit);
@@ -38,55 +33,42 @@ public class Listeners implements Listener
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event)
-    {
-        if (event.getInventory().getTitle().contains(TrailGUI.getPlugin().getConfig().getString("inventoryName")))
-        {
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (event.getInventory().getTitle().contains(TrailGUI.getPlugin().getConfig().getString("inventoryName"))) {
             event.setCancelled(true);
 
             Player player = (Player) event.getWhoClicked();
-            if ((event.getCurrentItem() == null) || (event.getCurrentItem() == new ItemStack(Material.AIR)))
-            {
+            if ((event.getCurrentItem() == null) || (event.getCurrentItem() == new ItemStack(Material.AIR))) {
                 return;
             }
             int currentPage = Integer.parseInt(event.getInventory().getTitle().replaceFirst(".+? ([0-9]+) / [0-9]+", "$1"));
             List<Trail> trails = Util.getSubList(currentPage);
 
-            for (Trail trail : trails)
-            {
-                if (trail.onInventoryClick(player, event.getCurrentItem()))
-                {
+            for (Trail trail : trails) {
+                if (trail.onInventoryClick(player, event.getCurrentItem())) {
                     return;
                 }
             }
 
-            if (event.getCurrentItem().equals(Util.itemNoPerms()) && TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission"))
-            {
+            if (event.getCurrentItem().equals(Util.itemNoPerms()) && TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission")) {
                 player.sendMessage(TrailGUI.getPlugin().getConfig().getString("GUI.denyPermissionMessage").replaceAll("&", "\u00A7"));
                 player.closeInventory();
                 return;
             }
 
-            if (event.getCurrentItem().equals(Util.getItemPreviousPage()))
-            {
-                if (!player.hasPermission("trailgui.inventory.previouspage"))
-                {
+            if (event.getCurrentItem().equals(Util.getItemPreviousPage())) {
+                if (!player.hasPermission("trailgui.inventory.previouspage")) {
                     player.sendMessage(TrailGUI.getPlugin().getConfig().getString("GUI.denyPermissionMessage").replaceAll("&", "\u00A7"));
-                    if (TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission"))
-                    {
+                    if (TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission")) {
                         player.closeInventory();
                     }
                     return;
                 }
                 Util.openGUI(player, currentPage - 1);
-            }
-            else if (event.getCurrentItem().equals(Util.getItemRemoveTrails()))
-            {
-                if (!player.hasPermission("trailgui.inventory.clearall"))
-                {
+            } else if (event.getCurrentItem().equals(Util.getItemRemoveTrails())) {
+                if (!player.hasPermission("trailgui.inventory.clearall")) {
                     player.sendMessage(TrailGUI.getPlugin().getConfig().getString("GUI.denyPermissionMessage").replaceAll("&", "\u00A7"));
-                    if (TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission"))
-                    {
+                    if (TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission")) {
                         player.closeInventory();
                     }
                     return;
@@ -94,18 +76,13 @@ public class Listeners implements Listener
                 Util.clearTrails(player);
 
                 player.sendMessage(TrailGUI.getPlugin().getConfig().getString("RemoveTrails.message").replaceAll("&", "\u00A7"));
-                if (TrailGUI.getPlugin().getConfig().getBoolean("GUI.closeInventoryAferSelect"))
-                {
+                if (TrailGUI.getPlugin().getConfig().getBoolean("GUI.closeInventoryAferSelect")) {
                     player.closeInventory();
                 }
-            }
-            else if (event.getCurrentItem().equals(Util.getItemNextPage()))
-            {
-                if (!player.hasPermission("trailgui.inventory.nextpage"))
-                {
+            } else if (event.getCurrentItem().equals(Util.getItemNextPage())) {
+                if (!player.hasPermission("trailgui.inventory.nextpage")) {
                     player.sendMessage(TrailGUI.getPlugin().getConfig().getString("GUI.denyPermissionMessage").replaceAll("&", "\u00A7"));
-                    if (TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission"))
-                    {
+                    if (TrailGUI.getPlugin().getConfig().getBoolean("closeInventoryOnDenyPermission")) {
                         player.closeInventory();
                     }
                     return;
@@ -117,46 +94,36 @@ public class Listeners implements Listener
 
 
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event)
-    {
+    public void onPlayerMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
-        if (!TrailGUI.enabledTrails.containsKey(player.getUniqueId()))
-        {
+        if (!TrailGUI.enabledTrails.containsKey(player.getUniqueId())) {
             return;
         }
         if ((TrailGUI.getPlugin().getConfig().getBoolean("disabledWhenSpinning")) &&
-                (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getY() == event.getTo().getY()) && (event.getFrom().getZ() == event.getTo().getZ()))
-        {
+                (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getY() == event.getTo().getY()) && (event.getFrom().getZ() == event.getTo().getZ())) {
             return;
         }
 
-        for (String string : TrailGUI.disabledWorlds)
-        {
+        for (String string : TrailGUI.disabledWorlds) {
             string = string.replace("[", "");
             string = string.replace("]", "");
-            if (string.equals(player.getWorld().getName()))
-            {
+            if (string.equals(player.getWorld().getName())) {
                 return;
             }
         }
         List<Trail> trails = TrailGUI.enabledTrails.get(player.getUniqueId());
-        try
-        {
-            for (Trail trail : trails)
-            {
+        try {
+            for (Trail trail : trails) {
                 trail.display(player);
             }
-        }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             Util.clearTrails(player);
         }
     }
 
     @EventHandler
-    public void onLogout(PlayerQuitEvent e)
-    {
-        if(TrailGUI.getPlugin().getConfig().getBoolean("clearTrailsOnDisconnect"))
+    public void onLogout(PlayerQuitEvent e) {
+        if (TrailGUI.getPlugin().getConfig().getBoolean("clearTrailsOnDisconnect"))
             Util.clearTrails(e.getPlayer());
         else
             Util.saveTrails(e.getPlayer().getUniqueId());

@@ -5,8 +5,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class TrailDisplayEvent extends Event implements Cancellable
-{
+public class TrailDisplayEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private String name;
     private double displayLocation;
@@ -17,8 +16,7 @@ public class TrailDisplayEvent extends Event implements Cancellable
     private Particle type;
     private boolean cancelled;
 
-    public TrailDisplayEvent(String name, double displayLocation, int amount, int cooldown, float speed, int range, Particle type)
-    {
+    public TrailDisplayEvent(String name, double displayLocation, int amount, int cooldown, float speed, int range, Particle type) {
         this.name = name;
         this.displayLocation = displayLocation;
         this.amount = amount;
@@ -29,54 +27,44 @@ public class TrailDisplayEvent extends Event implements Cancellable
     }
 
     @Override
-    public HandlerList getHandlers()
-    {
+    public HandlerList getHandlers() {
         return handlers;
     }
 
 
-    public double getDisplayLocation()
-    {
+    public double getDisplayLocation() {
         return displayLocation;
     }
 
-    public int getAmount()
-    {
+    public int getAmount() {
         return amount;
     }
 
-    public int getCooldown()
-    {
+    public int getCooldown() {
         return cooldown;
     }
 
-    public float getSpeed()
-    {
+    public float getSpeed() {
         return speed;
     }
 
-    public int getRange()
-    {
+    public int getRange() {
         return range;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public Particle getType()
-    {
+    public Particle getType() {
         return type;
     }
 
-    public boolean isCancelled()
-    {
+    public boolean isCancelled() {
         return cancelled;
     }
 
-    public void setCancelled(boolean cancelled)
-    {
+    public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }
 }
