@@ -13,7 +13,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
+//import org.mcstats.Metrics;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class TrailGUI
-        extends JavaPlugin {
+public class TrailGUI extends JavaPlugin {
     public static String prefix;
     public static boolean oneTrailAtATime;
     public static int maxTrails;
@@ -54,13 +53,13 @@ public class TrailGUI
         plugin = this;
 
 
-        if (getConfig().getBoolean("metrics")) {
-            try {
-                Metrics metrics = new Metrics(this);
-                metrics.start();
-            } catch (IOException ignored) {
-            }
-        }
+//        if (getConfig().getBoolean("metrics")) {
+//            try {
+//                Metrics metrics = new Metrics(this);
+//                metrics.start();
+//            } catch (IOException ignored) {
+//            }
+//        }
 
         if (getConfig().getBoolean("updater")) {
             try {
